@@ -1,21 +1,28 @@
 {
   "expo": {
-    "name": "rentaview_filmer",
-    "slug": "rentaview_filmer",
-    "version": "1.0.0",
+    "name": "Rent A View Filmer",
+    "slug": "rentaview-filmer",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "rentaviewfilmer",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#f7f7f7",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "supportsTablet": false,
+      "bundleIdentifier": "hr.rentaview.filmer",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Choose a profile photo that travellers will see.",
+        "NSLocationWhenInUseUsageDescription": "Confirm you're at the place and show travellers where you are during a live call.",
+        "NSCameraUsageDescription": "Film the places travellers ask about.",
+        "NSMicrophoneUsageDescription": "Record sound and talk with travellers during live calls."
+      }
     },
     "android": {
+      "package": "hr.rentaview.filmer",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#ffdc5c",
+        "foregroundImage": "./assets/images/icon.png"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -25,12 +32,19 @@
     },
     "plugins": [
       "expo-router",
+      "expo-font",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#ffdc5c",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 96
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose a profile photo that travellers will see."
         }
       ]
     ],

@@ -1,56 +1,115 @@
-# Welcome to your Expo app 👋
+# Rent A View: filmer prototype
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A clickable prototype of the **Rent A View filmer app**: the companion to the
+traveller web app (`~/Development/rent-a-view`). Filmers are trusted locals who
+pick up requests, go to the place, and film what the traveller asked for, so the
+traveller can resolve a doubt before they book. A "don't book" answer counts as
+a success too.
 
-## Get started
+This is a **prototype**. It has no backend: data is hardcoded, and everything
+lives in memory until you reload.
 
-1. Install dependencies
+## Run it
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Requires Node 20+ and Xcode with an iOS Simulator (or Expo Go on a phone).
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Then press `i` to open it in the iOS Simulator, or scan the QR code with
+**Expo Go** (SDK 57) on your phone. Any email and password signs you in as
+**Luka M.**, a filmer in Split.
 
-### Other setup steps
+If the simulator times out opening the project (it can on a fresh boot), open
+Expo Go once by hand and run `xcrun simctl openurl booted exp://127.0.0.1:8081`.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## What you can click through
 
-## Learn more
+| Flow | Where |
+| --- | --- |
+| Welcome and sign in (fake auth) | `src/app/welcome.tsx`, `sign-in.tsx` |
+| Onboarding, 4 steps: account → profile details and tour guide licence → payout option → confirm connection → all set | `src/app/sign-up.tsx`, `src/app/onboarding/` |
+| Nearby requests: list and map | `src/app/(tabs)/index.tsx` |
+| Request detail and brief: the traveller's doubt, shots, time slot or deadline, map pin; accept or decline | `src/app/request/[id].tsx` |
+| Job: navigate, "I've arrived" GPS check, "Can't get in?" report, progress | `src/app/job/[id].tsx` |
+| Recorded job: one continuous take with the brief as a checklist on screen → review (retake if needed) → upload | `src/app/record/[id].tsx` |
+| Live job: lobby counting down to the exact minute → video call with GPS sharing, the traveller talks and guides you → end call | `src/app/live/[id].tsx` |
+| Delivered / call ended: waiting for the traveller to accept | `src/app/done/[id].tsx` |
+| Jobs: upcoming, awaiting acceptance, completed (paid) | `src/app/(tabs)/jobs.tsx` |
+| Earnings: paid out (week, month, all time) vs pending, next payout day, ratings received | `src/app/(tabs)/earnings.tsx` |
+| Profile: photo, name, bio, how travellers see you, tour guide licence, payout method | `src/app/(tabs)/profile.tsx` |
 
-To learn more about developing your project with Expo, look at the following resources:
+**A good demo path:** sign in → Jobs → *Hvar Beachfront Studio* → Join call →
+*Skip the wait* → Maya's tile lights up while she talks → End call. Then Requests → *Split
+Center* → Accept → I've arrived → Start filming → record, ticking off the checklist → stop →
+Upload. On an *Awaiting acceptance* job, tap **Simulate: … accepts and
+rates** to see the money move from pending to paid out.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### The prototype clock
 
-## Join the community
+Every launch starts the app's clock at **10:42 Croatian time today**, then it
+runs in real time (`src/lib/time.ts`). That keeps the demo inside filmers'
+working hours, and puts the Hvar live call (10:45) three minutes away.
 
-Join our community of developers creating universal apps.
+## Shared story with the web app
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Statuses, places, people and amounts mirror the traveller prototype so both
+apps tell the same story:
+
+- **Scheduled → Live now → Awaiting acceptance → Completed**, then rated.
+  Same pill colours as the web dashboard.
+- Hvar Beachfront Studio is Maya's live booking with Luka M., as on the web.
+  The call shows the same balcony frame, and the GPS simulation is the same
+  code as the web's `useSimulatedFilmer`, with the same white-dot-blue-ring
+  marker.
+- Recorded checks start at €29.00, held in escrow until the traveller accepts.
+- Shared shapes (`LatLng`, `Place`, `BookingMode`, `User`) are copied into
+  `src/types.ts`, not imported.
+
+## Stack
+
+- Expo SDK 57, React Native 0.86, TypeScript, Expo Router (native tabs, stack)
+- `react-native-maps` (Apple Maps on iOS; works in Expo Go)
+- Reanimated for the camera drift and small entrances
+- Fonts: Inter (`@expo-google-fonts/inter`) and Fraunces with the SOFT axis at
+  100, cut into static files in `assets/fonts` from the OFL variable font
+  (licence: `assets/fonts/Fraunces-OFL.txt`). Expo Go can't set variable font
+  axes, so the instances are pre-made: Display (600, WONK), Medium (500),
+  SemiBold (600) and Italic (400).
+
+## Project structure
+
+| Path | What's in it |
+| --- | --- |
+| `src/theme.ts` | Design tokens ported from the web's `DESIGN.md` and `:root` CSS |
+| `src/types.ts` | Shared shapes plus `Request`, `Job`, `Filmer` |
+| `src/data/seed.ts` | Requests, jobs, Luka's profile, areas |
+| `src/data/photos.ts` | Placeholder Unsplash photos (same IDs as the web) |
+| `src/state/store.tsx` | In-memory store and all actions (`accept`, `deliver`, `endCall`, …) |
+| `src/services/` | Fakes to swap for real services: `auth`, `location`, `upload` |
+| `src/components/` | UI kit (`ui.tsx`), layout, cards, maps, brief, camera |
+| `src/lib/` | Prototype clock and Zagreb time formatting, distances, money |
+
+## Limits, and what production needs
+
+| Area | Prototype today | Needed |
+| --- | --- | --- |
+| **Auth** | Fake: any email signs in as Luka | Real auth, shared with the traveller app |
+| **Data** | Hardcoded in `src/data/seed.ts`, lost on reload | An API shared with the traveller app. Replace the bodies of the store actions. |
+| **Filmer verification** | A "Verified filmer" badge | ID checks before the first paid job |
+| **Tour guide licence** | File picked (photo or PDF) but never sent; goes straight to "In review". "Simulate: licence approved" in Profile turns on the badge | Upload to storage, a review step, and the "Licensed tour guide" badge in the traveller web app (`Filmer.guideLicence.status === 'verified'`) |
+| **Location** | Simulated (`src/services/location.ts`); the filmer's area stands in for their position | `expo-location`, publish fixes to the API, verify arrival server side |
+| **Camera** | A drifting placeholder photo with a GPS and time stamp | `expo-camera` recording, stamp metadata into the files |
+| **Upload** | Simulated progress (`src/services/upload.ts`) | Resumable upload and storage (e.g. S3 multipart or Mux) |
+| **Live video** | Simulated call: a moving placeholder frame and a fake "speaking" indicator | A live-video provider (e.g. LiveKit, Daily, Agora) |
+| **Payouts** | Escrow amounts and the payout method (bank, PayPal, Wise) are display only; "Authorise connection" just waits a second | Payment provider with escrow and payouts to filmers. The platform fee split is not modelled: payout = price. |
+| **Maps** | Apple Maps via `react-native-maps` | Fine on iOS; Android needs a Google Maps API key |
+| **Photos** | Unsplash hotlinked; welcome photo copied from the web's `public/media/filmer-cafe.jpg` | Self-host or replace with the client's photography, and confirm the welcome photo's licence |
+| **Profile photo** | Kept in memory | Upload to storage |
+| **Clock** | Starts at 10:42 Zagreb time every launch | `Date.now()` |
+| **Copy** | Placeholders such as "4.9 · 52 reviews", "24 hours to accept", "paid out every Friday" | Confirm with the client |
+
+Code marked "Prototype" in the UI (yellow tag) only exists to fake the other
+side of the marketplace.
