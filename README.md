@@ -25,6 +25,29 @@ Then press `i` to open it in the iOS Simulator, or scan the QR code with
 If the simulator times out opening the project (it can on a fresh boot), open
 Expo Go once by hand and run `xcrun simctl openurl booted exp://127.0.0.1:8081`.
 
+## Share a preview (no Apple account needed)
+
+The client installs **Expo Go** from the App Store, then scans this QR code with
+the iPhone camera (or opens the link). It always loads the latest preview.
+
+<img src="docs/preview-qr.png" width="200" alt="QR code for the client preview">
+
+```
+exp://u.expo.dev/b41a12c2-82c5-4f4a-b67c-41d049260312?channel-name=preview&runtime-version=exposdk:57.0.0
+```
+
+To push your latest changes to everyone who has it:
+
+```bash
+npm run publish:preview
+```
+
+It's live as soon as the command finishes; the client sees it the next time
+they open it. The runtime version is tied to the Expo SDK (`exposdk:57.0.0`),
+so it keeps working only while Expo Go on the App Store supports SDK 57.
+After an SDK upgrade, publish again and make a new QR code with the new
+runtime version.
+
 ## TestFlight
 
 Builds run in the cloud on EAS (Expo account `tobiasbergdahl`, project

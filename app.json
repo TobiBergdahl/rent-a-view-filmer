@@ -19,6 +19,9 @@
       },
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "runtimeVersion": {
+        "policy": "sdkVersion"
       }
     },
     "android": {
@@ -29,6 +32,7 @@
       },
       "predictiveBackGestureEnabled": false,
       "permissions": [
+        "android.permission.RECORD_AUDIO",
         "android.permission.RECORD_AUDIO"
       ]
     },
@@ -64,6 +68,9 @@
         "projectId": "b41a12c2-82c5-4f4a-b67c-41d049260312"
       }
     },
-    "owner": "tobiasbergdahl"
+    "owner": "tobiasbergdahl",
+    "updates": {
+      "url": "https://u.expo.dev/b41a12c2-82c5-4f4a-b67c-41d049260312"
+    }
   }
 }
