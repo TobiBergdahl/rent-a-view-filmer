@@ -27,8 +27,11 @@ Expo Go once by hand and run `xcrun simctl openurl booted exp://127.0.0.1:8081`.
 
 ## Share a preview (no Apple account needed)
 
-The client installs **Expo Go** from the App Store, then scans this QR code with
-the iPhone camera (or opens the link). It always loads the latest preview.
+The project lives in the Expo organization **rent-a-view**. Expo Go only opens
+it for members, so invite each viewer on expo.dev under Organization settings →
+Members with the **Viewer** role. They create a free Expo account, sign in to
+**Expo Go** (account icon, top right), then scan this QR code with the iPhone
+Camera app. It always loads the latest preview.
 
 <img src="docs/preview-qr.png" width="200" alt="QR code for the client preview">
 
@@ -50,7 +53,7 @@ runtime version.
 
 ## TestFlight
 
-Builds run in the cloud on EAS (Expo account `tobiasbergdahl`, project
+Builds run in the cloud on EAS (Expo organization `rent-a-view`, project
 `rentaview-filmer`), so no local Xcode is needed. You need an Apple Developer
 account.
 
