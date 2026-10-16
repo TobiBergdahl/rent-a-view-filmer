@@ -16,6 +16,9 @@
         "NSLocationWhenInUseUsageDescription": "Confirm you're at the place and show travellers where you are during a live call.",
         "NSCameraUsageDescription": "Film the places travellers ask about.",
         "NSMicrophoneUsageDescription": "Record sound and talk with travellers during live calls."
+      },
+      "config": {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
@@ -24,7 +27,10 @@
         "backgroundColor": "#ffdc5c",
         "foregroundImage": "./assets/images/icon.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "static",
@@ -51,6 +57,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b41a12c2-82c5-4f4a-b67c-41d049260312"
+      }
+    },
+    "owner": "tobiasbergdahl"
   }
 }

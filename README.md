@@ -25,6 +25,26 @@ Then press `i` to open it in the iOS Simulator, or scan the QR code with
 If the simulator times out opening the project (it can on a fresh boot), open
 Expo Go once by hand and run `xcrun simctl openurl booted exp://127.0.0.1:8081`.
 
+## TestFlight
+
+Builds run in the cloud on EAS (Expo account `tobiasbergdahl`, project
+`rentaview-filmer`), so no local Xcode is needed. You need an Apple Developer
+account.
+
+```bash
+npx eas-cli build --platform ios --profile production --auto-submit
+```
+
+The first run asks you to sign in to Apple, creates the certificates and the
+App Store Connect app (bundle ID `hr.rentaview.filmer`), then uploads the
+build. It shows up in TestFlight after Apple's processing, usually 10–30
+minutes. Build numbers count up by themselves; bump `version` in `app.json`
+for a new marketing version.
+
+To invite people, open the app in [App Store Connect](https://appstoreconnect.apple.com)
+→ TestFlight. Internal testers (people on your Apple team) can install right
+away; external testers need a short Beta App Review the first time.
+
 ## What you can click through
 
 | Flow | Where |
