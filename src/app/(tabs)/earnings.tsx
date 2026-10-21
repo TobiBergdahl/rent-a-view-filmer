@@ -9,7 +9,7 @@ import { Section } from '@/components/layout'
 import { Divider, ScreenStatusBar, Stars, Text } from '@/components/ui'
 import { euro } from '@/lib/money'
 import { day, daySentence, nextPayday, startOfMonth, startOfWeek, useNow } from '@/lib/time'
-import { inEscrow, useStore } from '@/state/store'
+import { isPending, useStore } from '@/state/store'
 import { colors, radius, space } from '@/theme'
 
 export default function Earnings() {
@@ -19,9 +19,9 @@ export default function Earnings() {
   // Paid out is shown for a period; Pending is always what's held right now
   const [period, setPeriod] = useState<Period>('week')
   const from = period === 'week' ? startOfWeek(now) : period === 'month' ? startOfMonth(now) : 0
-  const pending = jobs.filter(inEscrow)
+  const pending = jobs.filter(isPending)
   const released = jobs
-    .filter((j) => !inEscrow(j) && (j.releasedAt ?? 0) >= from)
+    .filter((j) => !isPending(j) && (j.releasedAt ?? 0) >= from)
     .sort((a, b) => (b.releasedAt ?? 0) - (a.releasedAt ?? 0))
   const payday = nextPayday(now)
   const sum = (list: typeof jobs) => list.reduce((total, j) => total + j.request.payout, 0)
@@ -73,8 +73,8 @@ export default function Earnings() {
         </View>
         <Text variant="caption" color="rgba(255,252,235,0.6)">
           {filmer!.payout
-            ? `Next payout ${daySentence(payday)} to ${filmer!.payout.provider}. Money is released when the traveller accepts.`
-            : 'Released when the traveller accepts. Add a payout method in Profile to get paid.'}
+            ? `Next payout ${daySentence(payday)} to ${filmer!.payout.provider}. You get paid when the traveler accepts.`
+            : 'You get paid when the traveler accepts. Add a payout method in Profile.'}
         </Text>
         </View>
       </View>

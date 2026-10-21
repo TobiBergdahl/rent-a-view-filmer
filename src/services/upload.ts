@@ -1,6 +1,6 @@
 // Simulated upload of the recorded video.
 // Production: resumable uploads (e.g. S3 multipart or Mux direct upload) of the
-// raw files with their GPS and time metadata, then notify the traveller.
+// raw files with their GPS and time metadata, then notify the traveler.
 import type { Video } from '@/types'
 
 // Rough size of 1080p60 footage, for display only

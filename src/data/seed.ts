@@ -1,5 +1,7 @@
-// Hardcoded prototype data. Places, filmers and dates match the traveller web
-// prototype where they overlap. Replace with the shared API.
+// Hardcoded prototype data. Places, walkers and dates match the traveler web
+// prototype where they overlap. Dubrovnik only for the proof of concept, and
+// every brief is something a walker can see from public space: walkers can't
+// enter a property. Replace with the shared API.
 import { demoStart, zagrebAt } from '@/lib/time'
 import type { AreaId, Filmer, Job, LatLng, Request, Shot } from '@/types'
 
@@ -13,30 +15,29 @@ const minutesAgo = (minutes: number) => demoStart - minutes * 60_000
 
 const shots = (...labels: string[]): Shot[] => labels.map((label, i) => ({ id: `s${i + 1}`, label }))
 
-// Each area's centre stands in for the filmer's GPS position in the prototype
+// The walker's area. Its centre stands in for their GPS position in the prototype.
 export const areas: Record<AreaId, { name: string; centre: LatLng }> = {
-  split: { name: 'Split', centre: [43.5103, 16.4318] }, // Veli Varoš, a short walk from the Riva
-  hvar: { name: 'Hvar', centre: [43.1729, 16.4412] },
-  dubrovnik: { name: 'Dubrovnik', centre: [42.6507, 18.0944] },
-  zadar: { name: 'Zadar', centre: [44.1194, 15.2314] },
-  zagreb: { name: 'Zagreb', centre: [45.815, 15.9819] },
+  dubrovnik: { name: 'Dubrovnik', centre: [42.6507, 18.0944] }, // Lapad, home base
 }
 
 export const areaIds = Object.keys(areas) as AreaId[]
 
-// The other filmers in the web prototype. Shown as colleagues, not used for sign in.
-export const otherFilmers = ['Ana K.', 'Marin B.', 'Karlo P.', 'Iva M.']
+// The other walkers in the web prototype. Shown as colleagues, not used for sign in.
+export const otherWalkers = ['Ana K.', 'Marin B.', 'Karlo P.', 'Iva M.']
 
-// Fake auth signs every email in as Luka, the filmer on the web's Hvar booking.
+// Walkers get about 79% of the €29 customer price, always in euros
+export const WALKER_PAYOUT = 2300
+
+// Fake auth signs every email in as Luka, the walker on the web's Banje booking.
 export const luka: Filmer = {
   firstName: 'Luka',
   lastName: 'Marić',
   email: 'luka@rentaview.hr',
   photo: portraits.luka,
-  area: 'split',
-  bio: 'Born in Split, on a bike most days. I film it straight: the good, the noisy and the stairs nobody mentions.',
+  area: 'dubrovnik',
+  bio: 'Born in Dubrovnik, on foot most days. I show it straight: the good, the noisy and the stairs nobody mentions.',
   verified: true,
-  // Luka is a licensed tour guide, so travellers see the badge
+  // Luka is a licensed tour guide, so travelers see the badge
   guideLicence: { status: 'verified', fileName: 'turisticki-vodic-licenca.pdf', submittedAt: on(2025, 4, 2) },
   payout: { method: 'bank', provider: 'Zagrebačka banka', detail: 'Current account ending in 4821' },
   ratingAverage: 4.9,
@@ -45,43 +46,43 @@ export const luka: Filmer = {
 
 export const openRequests: Request[] = [
   {
-    id: 'split-center',
+    id: 'stradun-evening',
     place: {
-      title: 'Split Center',
-      address: 'Riva, 21000 Split',
-      area: 'Split',
-      position: [43.5081, 16.4402],
-      photo: photos.splitHarbour,
+      title: 'Stradun, Old Town',
+      address: 'Stradun, 20000 Dubrovnik',
+      area: 'Old Town',
+      position: [42.6411, 18.108],
+      photo: photos.dubrovnikWalls,
     },
     category: 'Neighbourhood',
     mode: 'recorded',
-    payout: 2900,
+    payout: WALKER_PAYOUT,
     traveller: { firstName: 'Jonas', lastName: 'Weber' },
-    doubt: 'Is the Riva too loud in the evening for a family with a baby?',
+    doubt: 'Is the Old Town too loud in the evening for a family with a baby?',
     brief:
-      'Walk the Riva from the fountain to the fish market around 18:00. Let the sound run, and show whether a stroller gets through the crowds.',
+      'Walk from the Pile Gate taxi stop along Stradun around 18:00. Let the sound run, and show whether a stroller gets through the crowds.',
     shots: shots(
-      'Walk from the fountain to the fish market',
+      'Walk from the Pile Gate taxi stop',
       '30 seconds of street sound at the busiest spot',
-      'Stroller route: kerbs, steps and ramps',
+      'Stroller route: steps and ramps',
     ),
     deadline: today(19),
     postedAt: minutesAgo(6),
   },
   {
-    id: 'bacvice-beach',
+    id: 'banje-beach',
     place: {
-      title: 'Bačvice Beach',
-      address: 'Šetalište Petra Preradovića, 21000 Split',
-      area: 'Split',
-      position: [43.5023, 16.4469],
-      photo: photos.hvarHarbour,
+      title: 'Banje Beach',
+      address: 'Frana Supila, 20000 Dubrovnik',
+      area: 'Ploče',
+      position: [42.6414, 18.1159],
+      photo: photos.beachCove,
     },
     category: 'Beach',
     mode: 'live',
-    payout: 4500,
+    payout: WALKER_PAYOUT,
     traveller: { firstName: 'Elena', lastName: 'Rossi' },
-    doubt: 'How crowded does Bačvice really get at lunchtime?',
+    doubt: 'How crowded does Banje really get at lunchtime?',
     brief:
       'Show the beach live at lunchtime: how much free space there is, the shade, the showers, and the water right at the shore.',
     shots: shots('Wide view of the whole beach', 'Free space near the water', 'Shade, showers and toilets'),
@@ -95,69 +96,63 @@ export const openRequests: Request[] = [
     place: {
       title: 'Dubrovnik Old Town Apartment',
       address: 'Ul. od Puča 16, 20000 Dubrovnik',
-      area: 'Dubrovnik',
+      area: 'Old Town',
       position: [42.6408, 18.1094],
-      photo: photos.dubrovnikWalls,
+      photo: photos.oldTownAlley,
     },
     category: 'Hotel',
     mode: 'recorded',
-    payout: 2900,
+    payout: WALKER_PAYOUT,
     traveller: { firstName: 'Priya', lastName: 'Shah' },
-    doubt: 'The listing says “sea view”. Can I really see the sea from the balcony?',
+    doubt: 'The listing says “quiet street”. Is the building site next door noisy?',
     brief:
-      'Verify the actual balcony view from room 302, and check whether the construction next door is noisy.',
-    shots: shots(
-      '10-second slow pan of the balcony view',
-      'Close-up of bathroom and shower corners',
-      'Sound level with the balcony door open',
-    ),
+      'Show the building and the street from outside, the building site next door, and how loud it is around midday.',
+    shots: shots('View of the building and street', 'The building site next door', '30 seconds of street noise'),
     deadline: inDays(1, 12),
     postedAt: minutesAgo(41),
   },
   {
-    id: 'zadar-riva',
+    id: 'lapad-walk',
     place: {
-      title: 'Zadar Riva',
-      address: 'Obala kralja Petra Krešimira IV, 23000 Zadar',
-      area: 'Zadar',
-      position: [44.1137, 15.225],
-      photo: photos.zadarSunset,
+      title: 'Lapad Bay',
+      address: 'Šetalište kralja Zvonimira, 20000 Dubrovnik',
+      area: 'Lapad',
+      position: [42.6558, 18.0756],
+      photo: photos.lapadBay,
     },
     category: 'Neighbourhood',
     mode: 'live',
-    payout: 3900,
+    payout: WALKER_PAYOUT,
     traveller: { firstName: 'Tom', lastName: 'Hughes' },
-    doubt: 'Is the sunset spot by the Sea Organ worth planning a whole evening around?',
-    brief:
-      'Join at sunset by the Sea Organ. Show the crowd, where to sit, and let me hear the organ for a minute.',
-    shots: shots('The Sea Organ steps', 'Where people sit for sunset', 'One minute of the organ'),
+    doubt: 'The listing says “5 minutes to the beach”. Is that true?',
+    brief: 'Walk live from the apartment block to Lapad beach so we can time it, and show the hill on the way back.',
+    shots: shots('The building entrance and surroundings', 'Walk to the beach, timed', 'The hill on the way back'),
     start: inDays(1, 18, 45),
     minutes: 15,
     talk: true,
     postedAt: minutesAgo(65),
   },
   {
-    id: 'zagreb-city-loft',
+    id: 'gruz-harbour-loft',
     place: {
-      title: 'Zagreb City Loft',
-      address: 'Tkalčićeva ul. 12, 10000 Zagreb',
-      area: 'Zagreb',
-      position: [45.8155, 15.9771],
-      photo: photos.zagrebStreet,
+      title: 'Gruž Harbour Loft',
+      address: 'Obala Stjepana Radića 12, 20000 Dubrovnik',
+      area: 'Gruž',
+      position: [42.6589, 18.0857],
+      photo: photos.marinaBoats,
     },
     category: 'Neighbourhood',
     mode: 'recorded',
-    payout: 2900,
+    payout: WALKER_PAYOUT,
     traveller: { firstName: 'Sara', lastName: 'Lind' },
-    doubt: 'Will I sleep with the bars on Tkalčićeva right below?',
-    // Same brief as the web prototype's Zagreb booking
+    doubt: 'Will I sleep with the ferry port right below?',
     brief:
-      'Record the approach from the street, building entrance, lift, natural light in the main room, and noise with the windows open.',
+      'Record the approach from the bus stop, the building entrance, the stairs to the door, and the harbour noise in the evening.',
     shots: shots(
-      'Approach from the street',
-      'Building entrance and lift',
-      'Natural light in the main room',
-      'Noise with the windows open',
+      'Approach from the bus stop',
+      'Building entrance and surroundings',
+      'Stairs from the street to the door',
+      'Harbour noise in the evening',
     ),
     deadline: inDays(2, 18),
     postedAt: minutesAgo(130),
@@ -166,25 +161,26 @@ export const openRequests: Request[] = [
 
 export const initialJobs: Job[] = [
   {
-    // The web prototype's live booking: Maya and Luka at the Hvar studio
-    id: 'hvar-beachfront',
+    // The web prototype's live booking: Maya and Luka at Banje Beachfront Studio
+    id: 'banje-beachfront',
     request: {
-      id: 'hvar-beachfront',
+      id: 'banje-beachfront',
       place: {
-        title: 'Hvar Beachfront Studio',
-        address: 'Fabrika 12, 21450 Hvar',
-        area: 'Hvar',
-        position: [43.17182, 16.44165],
-        photo: photos.hvarHarbour,
+        title: 'Banje Beachfront Studio',
+        address: 'Ul. Frana Supila 6, 20000 Dubrovnik',
+        area: 'Ploče',
+        position: [42.64185, 18.11585],
+        photo: photos.beachCove,
       },
       category: 'Beach',
       mode: 'live',
-      payout: 3900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Maya', lastName: 'Chen' },
       doubt: 'Is it really beachfront, or is there a busy road in between?',
+      // Same brief as the web
       brief:
-        'Walk through the beachfront studio live and show the view, beach access, street noise, and the condition of the balcony.',
-      shots: shots('The view from the balcony', 'Walk to the beach access', 'Street noise', 'Balcony condition'),
+        'Walk from the taxi drop-off to the beachfront studio live and show the street, the stairs, the walk to the beach and street noise.',
+      shots: shots('The street from the taxi drop-off', 'Stairs from taxi to door', 'Walk to the beach', 'Street noise'),
       start: today(10, 45),
       minutes: 15,
       talk: true,
@@ -194,50 +190,50 @@ export const initialJobs: Job[] = [
     acceptedAt: minutesAgo(60 * 25),
   },
   {
-    id: 'zadar-sunset-penthouse',
+    id: 'ploce-penthouse',
     request: {
-      id: 'zadar-sunset-penthouse',
+      id: 'ploce-penthouse',
       place: {
-        title: 'Zadar Sunset Penthouse',
-        address: 'Ul. Mihovila Klaića 4, 23000 Zadar',
-        area: 'Zadar',
-        position: [44.1158, 15.2263],
-        photo: photos.zadarSunset,
+        title: 'Ploče Sea-View Penthouse',
+        address: 'Ul. Vlaha Bukovca 4, 20000 Dubrovnik',
+        area: 'Ploče',
+        position: [42.6432, 18.1182],
+        photo: photos.srdView,
       },
       category: 'Hotel',
       mode: 'recorded',
-      payout: 2900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Noah', lastName: 'Fischer' },
-      doubt: 'Is the rooftop terrace as private as the photos make it look?',
-      brief: 'Show the rooftop terrace, what the neighbours can see, and the stairs up to it.',
-      shots: shots('Rooftop terrace, slow pan', 'View from the neighbouring windows', 'Stairs up to the terrace'),
+      doubt: 'Is it on a quiet lane, or right above the busy coast road?',
+      brief: 'Show the lane outside, the traffic on the coast road below, and the steps up from the bus stop.',
+      shots: shots('The lane outside the building', 'Traffic on the coast road', 'Steps up from the bus stop'),
       deadline: inDays(-1, 18),
       postedAt: minutesAgo(60 * 30),
     },
     status: 'awaiting',
     acceptedAt: minutesAgo(60 * 29),
     arrivedAt: inDays(-1, 16, 50),
-    video: { seconds: 73, photo: photos.zadarSunset, at: inDays(-1, 17, 9), shown: ['s1', 's2', 's3'] },
+    video: { seconds: 73, photo: photos.srdView, at: inDays(-1, 17, 9), shown: ['s1', 's2', 's3'] },
     deliveredAt: inDays(-1, 17, 20),
   },
   {
-    id: 'split-harbor-villa',
+    id: 'pile-bay-villa',
     request: {
-      id: 'split-harbor-villa',
+      id: 'pile-bay-villa',
       place: {
-        title: 'Split Harbor Sea-View Villa',
-        address: 'Obala Lazareta 3, 21000 Split',
-        area: 'Split',
-        position: [43.5068, 16.4433],
-        photo: photos.splitHarbour,
+        title: 'Pile Bay Sea-View Villa',
+        address: 'Ul. Brsalje 3, 20000 Dubrovnik',
+        area: 'Pile',
+        position: [42.6416, 18.1047],
+        photo: photos.pileBay,
       },
       category: 'Listing',
       mode: 'recorded',
-      payout: 4900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Hannah', lastName: 'Berg' },
-      doubt: 'How loud is the ferry port at night?',
-      brief: 'Record the view, then the harbour noise from the bedroom with the windows open after 22:00.',
-      shots: shots('The sea view', 'Bedroom, windows open', 'Harbour noise after 22:00'),
+      doubt: 'How loud is the road by Pile Gate at night?',
+      brief: 'Record the street outside after 22:00, the traffic at Pile Gate and the walk to the door.',
+      shots: shots('The street outside', 'Traffic at Pile Gate after 22:00', 'Walk to the door'),
       deadline: on(2026, 3, 15, 23),
       postedAt: on(2026, 3, 14, 9),
     },
@@ -249,35 +245,35 @@ export const initialJobs: Job[] = [
     // "Don't book" is also a success
     rating: {
       stars: 5,
-      comment: 'Honest and clear. The ferry horns settled it: we booked somewhere else. Thank you, Luka!',
+      comment: 'Honest and clear. The night traffic settled it: we booked somewhere else. Thank you, Luka!',
       at: on(2026, 3, 16, 8, 5),
     },
   },
   {
-    id: 'trogir-old-town',
+    id: 'old-town-alley',
     request: {
-      id: 'trogir-old-town',
+      id: 'old-town-alley',
       place: {
-        title: 'Trogir Old Town Studio',
-        address: 'Gradska ul. 9, 21220 Trogir',
-        area: 'Trogir',
-        position: [43.5167, 16.2511],
-        photo: photos.splitHarbour,
+        title: 'Old Town Alley Studio',
+        address: 'Široka ul. 5, 20000 Dubrovnik',
+        area: 'Old Town',
+        position: [42.6416, 18.1085],
+        photo: photos.oldTownAlley,
       },
       category: 'Listing',
       mode: 'recorded',
-      payout: 2900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Clara', lastName: 'Dubois' },
-      doubt: 'Is the studio really on a quiet street, or right on the busy promenade?',
-      brief: 'Film the walk from the bridge to the door, the street outside, and the bedroom window at night.',
-      shots: shots('Walk from the bridge to the door', 'The street outside', 'Bedroom window, evening'),
+      doubt: 'Is the studio really on a quiet street, or right off Stradun?',
+      brief: 'Film the walk from Pile Gate to the door, the alley outside, and the noise from Stradun in the evening.',
+      shots: shots('Walk from Pile Gate to the door', 'The alley outside', 'Noise from Stradun, evening'),
       deadline: inDays(-2, 20),
       postedAt: inDays(-3, 10),
     },
     status: 'completed',
     acceptedAt: inDays(-3, 10, 30),
     arrivedAt: inDays(-2, 18, 40),
-    video: { seconds: 96, photo: photos.splitHarbour, at: inDays(-2, 18, 55), shown: ['s1', 's2', 's3'] },
+    video: { seconds: 96, photo: photos.oldTownAlley, at: inDays(-2, 18, 55), shown: ['s1', 's2', 's3'] },
     deliveredAt: inDays(-2, 19, 5),
     releasedAt: inDays(-1, 9, 15),
     rating: {
@@ -287,23 +283,23 @@ export const initialJobs: Job[] = [
     },
   },
   {
-    id: 'makarska-beach',
+    id: 'lapad-steps',
     request: {
-      id: 'makarska-beach',
+      id: 'lapad-steps',
       place: {
-        title: 'Makarska Beach Apartment',
-        address: 'Obala kralja Tomislava 8, 21300 Makarska',
-        area: 'Makarska',
-        position: [43.2969, 17.0178],
-        photo: photos.hvarHarbour,
+        title: 'Lapad Beach Apartment',
+        address: 'Ul. kralja Tomislava 8, 20000 Dubrovnik',
+        area: 'Lapad',
+        position: [42.6541, 18.0783],
+        photo: photos.stoneHouse,
       },
       category: 'Beach',
       mode: 'live',
-      payout: 3900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Mia', lastName: 'Novak' },
       doubt: 'How many steps down to the beach? We travel with my dad, who uses a cane.',
       brief: 'Walk live from the front door to the sand so we can count the steps.',
-      shots: shots('Front door', 'Every step down to the beach', 'The beach entrance'),
+      shots: shots('Front door from the street', 'Every step down to the beach', 'The beach entrance'),
       start: inDays(-10, 11),
       minutes: 15,
       talk: true,
@@ -323,23 +319,23 @@ export const initialJobs: Job[] = [
     },
   },
   {
-    id: 'plitvice-cabin',
+    id: 'srd-hillside',
     request: {
-      id: 'plitvice-cabin',
+      id: 'srd-hillside',
       place: {
-        title: 'Plitvice Forest Cabin Retreat',
-        address: 'Mukinje 21, 53231 Plitvička Jezera',
-        area: 'Plitvice',
-        position: [44.8806, 15.6196],
-        photo: photos.plitvice,
+        title: 'Srđ Hillside Retreat',
+        address: 'Bosanka 21, 20000 Dubrovnik',
+        area: 'Srđ',
+        position: [42.6496, 18.1236],
+        photo: photos.oldPort,
       },
       category: 'Listing',
       mode: 'live',
-      payout: 3900,
+      payout: WALKER_PAYOUT,
       traveller: { firstName: 'Lucas', lastName: 'Martin' },
-      doubt: 'Can we walk to the lakes, or do we need a car?',
-      brief: 'Walk the route from the cabin to entrance 2 live, so we can see if it works with kids.',
-      shots: shots('The cabin outside', 'The path to the entrance', 'Distance markers'),
+      doubt: 'Can we walk down to the Old Town, or do we need a taxi?',
+      brief: 'Walk the route from the house down to Ploče Gate live, so we can see if it works with kids.',
+      shots: shots('The house from the road', 'The path down the hill', 'Ploče Gate'),
       start: on(2026, 3, 5, 11),
       minutes: 30,
       talk: true,

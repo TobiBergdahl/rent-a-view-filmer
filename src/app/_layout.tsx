@@ -51,6 +51,7 @@ function Routes() {
         <Stack.Screen name="sign-in" />
         <Stack.Screen name="sign-up" />
         <Stack.Screen name="onboarding/profile" />
+        <Stack.Screen name="onboarding/respect" />
         <Stack.Screen name="onboarding/payout" />
         <Stack.Screen name="onboarding/connect" />
         <Stack.Screen name="onboarding/done" options={{ gestureEnabled: false }} />

@@ -43,7 +43,7 @@ export function zagrebAt(base: number, dayOffset: number, hour: number, minute =
 
 // Prototype clock. Every launch starts at 10:42 Croatian time today and then
 // runs in real time, so the demo always lands inside working hours and the
-// Hvar live call starts a few minutes in. Replace with Date.now() for real use.
+// Banje live call starts a few minutes in. Replace with Date.now() for real use.
 const launchedAt = Date.now()
 const DEMO_START = zagrebAt(launchedAt, 0, 10, 42)
 export const now = () => DEMO_START + (Date.now() - launchedAt)

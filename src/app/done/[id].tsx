@@ -1,4 +1,4 @@
-// Blueprint: "Recording delivered" / call ended. Waiting for the traveller.
+// Blueprint: "Recording delivered" / call ended. Waiting for the traveler.
 import { router, useLocalSearchParams } from 'expo-router'
 import { ScrollView, View } from 'react-native'
 import Animated, { ZoomIn } from 'react-native-reanimated'
@@ -43,7 +43,7 @@ export default function Done() {
 
         {/* One sentence for what happens next, then the facts */}
         <Text variant="body" color={colors.body} style={{ textAlign: 'center', paddingHorizontal: space.base }}>
-          {`${name} has 24 hours to review it. Your ${euro(r.payout)} is released when ${name} accepts, or automatically after 24 hours.`}
+          {`${name} has 24 hours to review it. You get paid when ${name} accepts, or automatically after 24 hours.`}
         </Text>
 
         <Divider style={{ marginHorizontal: 20 }} />

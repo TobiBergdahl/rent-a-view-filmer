@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Rent A View Filmer",
+    "name": "Rent A View Walker",
     "slug": "rentaview-filmer",
     "version": "0.1.0",
     "orientation": "portrait",
@@ -12,10 +12,10 @@
       "supportsTablet": false,
       "bundleIdentifier": "hr.rentaview.filmer",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Choose a profile photo that travellers will see.",
-        "NSLocationWhenInUseUsageDescription": "Confirm you're at the place and show travellers where you are during a live call.",
-        "NSCameraUsageDescription": "Film the places travellers ask about.",
-        "NSMicrophoneUsageDescription": "Record sound and talk with travellers during live calls."
+        "NSPhotoLibraryUsageDescription": "Choose a profile photo that travelers will see.",
+        "NSLocationWhenInUseUsageDescription": "Confirm you're at the place and show travelers where you are during a live call.",
+        "NSCameraUsageDescription": "Film the places travelers ask about.",
+        "NSMicrophoneUsageDescription": "Record sound and talk with travelers during live calls."
       },
       "config": {
         "usesNonExemptEncryption": false
@@ -32,7 +32,6 @@
       },
       "predictiveBackGestureEnabled": false,
       "permissions": [
-        "android.permission.RECORD_AUDIO",
         "android.permission.RECORD_AUDIO"
       ]
     },
@@ -54,7 +53,7 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Choose a profile photo that travellers will see."
+          "photosPermission": "Choose a profile photo that travelers will see."
         }
       ]
     ],

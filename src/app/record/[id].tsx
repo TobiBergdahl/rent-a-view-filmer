@@ -151,7 +151,7 @@ function Capture({ jobId, onDone }: { jobId: string; onDone: () => void }) {
           Tap each one once you’ve filmed it.
         </Text>
         <ShotList request={r} captured={shown} onToggle={tick} />
-        <Button onPress={() => setSheet(false)}>{recording ? 'Back to filming' : 'Done'}</Button>
+        <Button onPress={() => setSheet(false)}>{recording ? 'Back to recording' : 'Done'}</Button>
       </Sheet>
     </View>
   )

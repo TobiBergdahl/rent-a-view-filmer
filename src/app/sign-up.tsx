@@ -1,4 +1,4 @@
-// Onboarding step 1 of 4: account details
+// Onboarding step 1 of 5: account details
 import { router } from 'expo-router'
 import { useState } from 'react'
 import { View } from 'react-native'
@@ -35,7 +35,7 @@ export default function SignUp() {
   return (
     <OnboardingScreen
       step={1}
-      title="Create your filmer account"
+      title="Create your walker account"
       lead="Your details first, then your profile and how you get paid."
       footer={
         <>
@@ -72,10 +72,10 @@ export default function SignUp() {
       </View>
       <View style={{ alignItems: 'center', flexDirection: 'row', gap: 6, justifyContent: 'center' }}>
         <Text variant="bodySmall" color={colors.muted}>
-          Already filming with us?
+          Already a walker?
         </Text>
         <TextButton color={colors.muted} onPress={() => router.replace('/sign-in')}>
-          Log in
+          Sign in
         </TextButton>
       </View>
     </OnboardingScreen>

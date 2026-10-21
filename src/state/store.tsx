@@ -52,7 +52,7 @@ function useStoreValue() {
       /** One take per job: a new recording replaces the previous one */
       saveVideo: (jobId: string, video: Video) => updateJob(jobId, (job) => ({ ...job, video })),
       discardVideo: (jobId: string) => updateJob(jobId, (job) => ({ ...job, video: undefined })),
-      /** Recorded: uploaded, waiting for the traveller to accept */
+      /** Recorded: uploaded, waiting for the traveler to accept */
       deliver: (jobId: string) =>
         updateJob(jobId, (job) => ({ ...job, status: 'awaiting', deliveredAt: now() })),
 
@@ -66,7 +66,7 @@ function useStoreValue() {
       endCall: (jobId: string, seconds: number) =>
         updateJob(jobId, (job) => ({ ...job, status: 'awaiting', callSeconds: seconds, deliveredAt: now() })),
 
-      /** Prototype only: what happens when the traveller accepts and rates on the web */
+      /** Prototype only: what happens when the traveler accepts and rates on the web */
       travellerAccepts: (jobId: string) =>
         setState((s) => {
           const stars = 5
@@ -121,5 +121,5 @@ export const statusLabel: Record<Job['status'], string> = {
   completed: 'Completed',
 }
 
-/** Money the traveller has paid that sits in escrow until they accept */
-export const inEscrow = (job: Job) => job.status !== 'completed'
+/** Pending: not paid out yet, until the traveler accepts (or 24 hours pass) */
+export const isPending = (job: Job) => job.status !== 'completed'

@@ -6,16 +6,23 @@ const photo = (id: string, width = 1200) =>
 const portrait = (id: string, size = 240) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&crop=faces&w=${size}&h=${size}&q=80`
 
+// Dubrovnik only, for the proof of concept. Places, never people in focus.
+// Same set as the web, except Lapad Bay (the web still shows a couple there)
 export const photos = {
   dubrovnikWalls: photo('1414862625453-d87604a607e4'),
-  hvarHarbour: photo('1605703296515-515167084932'),
-  zagrebStreet: photo('1772190576978-b43f586efbcb'),
-  splitHarbour: photo('1555990538-c48ab0a194b5'),
-  zadarSunset: photo('1725456248098-cc250e04a4b9'),
-  plitvice: photo('1595171250522-ae1c060c288d'),
-  // The web app's live-call frame: sea view from a balcony
-  balconyView: photo('1693035646984-d7bdde95317e'),
+  beachCove: photo('1565784623727-8cebf4712b2d'),
+  oldTownAlley: photo('1632154613912-052a12edc114'),
+  pileBay: photo('1610104052927-ed67e7faefc3'),
+  oldPort: photo('1555990794-6d00be0d6f95'),
+  srdView: photo('1690208850921-7a26f15a32b6'),
+  lapadBay: photo('1654078646495-cd9d771fc0c3'),
+  stoneHouse: photo('1691310939842-bcec99e88aa4'),
+  marinaBoats: photo('1596658817340-5a9306887ef0'),
 }
+
+// Street-level frame for the live call, as on the web. Always filmed from
+// public space; replace with real walker footage.
+export const liveStreet = require('@/assets/images/live-street.jpg')
 
 export const portraits = {
   luka: portrait('1705645930353-0e335311ef20'),

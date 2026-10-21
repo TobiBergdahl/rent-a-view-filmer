@@ -62,7 +62,7 @@ export function ShotList({
   )
 }
 
-/** Everything the traveller asked for, in one white card: their doubt, the brief and the shots */
+/** Everything the traveler asked for, in one white card: their doubt, the brief and the shots */
 /**
  * `firstTime`: show the "honest answer" note, only until the filmer has finished a job.
  * `collapsible`: start closed, showing only the question, with a toggle for the rest.
@@ -118,6 +118,12 @@ export function BriefBlocks({
       <View style={{ gap: space.md }}>
         <Text variant="section">{request.mode === 'live' ? 'Show during the call' : 'What to capture'}</Text>
         <ShotList request={request} captured={captured} />
+      </View>
+      <View style={{ alignItems: 'flex-start', flexDirection: 'row', gap: space.sm }}>
+        <Icon name="eye" size={14} color={colors.muted} style={{ marginTop: 3 }} />
+        <Text variant="caption" color={colors.muted} style={{ flex: 1 }}>
+          You check everything visible from public space. You can’t enter the property.
+        </Text>
       </View>
       </>
       )}

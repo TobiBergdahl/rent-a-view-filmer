@@ -1,4 +1,4 @@
-// Onboarding step 2 of 4: profile details and the optional tour guide licence
+// Onboarding step 2 of 5: profile details and the optional tour guide licence
 import * as ImagePicker from 'expo-image-picker'
 import { router } from 'expo-router'
 import { Pressable, View } from 'react-native'
@@ -29,10 +29,10 @@ export default function ProfileStep() {
     <OnboardingScreen
       step={2}
       title="Add your profile details"
-      lead="This is what travellers see when you take their request."
+      lead="This is what travelers see when you take their request."
       footer={
         <>
-          <Button onPress={() => router.push('/onboarding/payout')}>Continue</Button>
+          <Button onPress={() => router.push('/onboarding/respect')}>Continue</Button>
           <Text variant="caption" color={colors.muted} style={{ textAlign: 'center' }}>
             You can change your profile later.
           </Text>
@@ -66,7 +66,7 @@ export default function ProfileStep() {
         <View style={{ flex: 1, gap: 2 }}>
           <Text variant="title">{draft.photo ? 'Change photo' : 'Add a profile photo'}</Text>
           <Text variant="bodySmall" color={colors.muted}>
-            A clear, friendly face helps travellers trust you.
+            A clear, friendly face helps travelers trust you.
           </Text>
         </View>
       </Pressable>
@@ -81,7 +81,7 @@ export default function ProfileStep() {
           multiline
           value={draft.bio}
           onChangeText={(bio) => updateDraft({ bio })}
-          placeholder="Where you’re from, what you know well, how you film"
+          placeholder="Where you’re from, what you know well, how you show a place"
         />
       </View>
 

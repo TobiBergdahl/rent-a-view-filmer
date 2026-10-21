@@ -1,4 +1,4 @@
-// The traveller accepted: the money is released. The payout and the rating
+// The traveler accepted: the money is released. The payout and the rating
 // arrive together as one moment. Production: open this from the push
 // notification, or on next launch for jobs accepted while the app was closed.
 import * as Haptics from 'expo-haptics'
@@ -80,7 +80,7 @@ export default function Paid() {
 
         <Animated.View entering={FadeIn.delay(TIMING.destination).duration(300)}>
           <Text variant="lead" color="rgba(255,252,235,0.8)" style={{ textAlign: 'center' }}>
-            {payout ? `is on its way to ${payout.provider}.` : 'is released. Add a payout method in Profile to receive it.'}
+            {payout ? `is on its way to ${payout.provider}.` : 'is yours. Add a payout method in Profile to receive it.'}
           </Text>
         </Animated.View>
       </View>
