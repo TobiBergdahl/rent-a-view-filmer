@@ -48,7 +48,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "publish:preview": "eas update --branch preview --platform ios --environment preview --message \"Client preview\""
+    "publish:preview": "npx -y eas-cli@latest update --branch preview --platform ios --environment preview --message \"Client preview\""
   },
   "private": true
 }
