@@ -1,6 +1,6 @@
-// Live job: wait for the exact minute, then a video call with the traveller
+// Live job: wait for the exact minute, then a video call with the traveler
 // while sharing GPS. Production: a live-video provider (e.g. LiveKit, Daily,
-// Agora) and publishing the GPS fixes to the API for the traveller's map.
+// Agora) and publishing the GPS fixes to the API for the traveler's map.
 import { BlurView } from 'expo-blur'
 import * as Haptics from 'expo-haptics'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -13,8 +13,7 @@ import { ShotList } from '@/components/brief'
 import { CameraControl, LocationCheck, PulseDot, Viewfinder } from '@/components/camera'
 import { Sheet } from '@/components/layout'
 import { Avatar, Button, Icon, PrototypeTag, RoundButton, ScreenStatusBar, Text, TextButton, type SymbolName } from '@/components/ui'
-import { photos } from '@/data/photos'
-import { euro } from '@/lib/money'
+import { liveStreet } from '@/data/photos'
 import { clock, duration, useNow } from '@/lib/time'
 import { useFilmerPosition } from '@/services/location'
 import { useJob, useStore } from '@/state/store'
@@ -172,7 +171,7 @@ function Call({ jobId, now }: { jobId: string; now: number }) {
   const over = elapsed > total
   const nearlyDone = !over && total - elapsed < 60
 
-  // A voice call, like FaceTime: the traveller talks and their tile lights up
+  // A voice call, like FaceTime: the traveler talks and their tile lights up
   // while they speak (simulated). Production: the live-video provider's
   // active-speaker events.
   useEffect(() => {
@@ -196,9 +195,9 @@ function Call({ jobId, now }: { jobId: string; now: number }) {
   return (
     <View style={{ backgroundColor: colors.camera, flex: 1 }}>
       <ScreenStatusBar style="light" />
-      {/* Same frame the traveller sees on the web: the Hvar balcony view */}
+      {/* Same street-level frame the traveler sees on the web */}
       <Viewfinder
-        photo={r.id === 'hvar-beachfront' ? photos.balconyView : r.place.photo}
+        photo={r.id === 'banje-beachfront' ? liveStreet : r.place.photo}
         style={{ bottom: 0, left: 0, position: 'absolute', right: 0, top: 0 }}
       />
       <LinearGradient
@@ -229,7 +228,7 @@ function Call({ jobId, now }: { jobId: string; now: number }) {
             )}
           </View>
 
-          {/* The traveller, picture in picture */}
+          {/* The traveler, picture in picture */}
           <View
             style={{
               backgroundColor: colors.cameraTile,
@@ -303,7 +302,7 @@ function Call({ jobId, now }: { jobId: string; now: number }) {
       <Sheet visible={sheet === 'end'} onClose={() => setSheet(null)}>
         <Text variant="headline">End the call?</Text>
         <Text variant="body" color={colors.body}>
-          {`This ends it for you and ${t.firstName}. Once ${t.firstName} accepts, your ${euro(r.payout)} is released.`}
+          {`This ends it for you and ${t.firstName}. You get paid when ${t.firstName} accepts, or automatically after 24 hours.`}
         </Text>
         {shown.size < r.shots.length && (
           <Text variant="bodySmall" color={colors.warning}>
@@ -314,7 +313,7 @@ function Call({ jobId, now }: { jobId: string; now: number }) {
           End call
         </Button>
         <Button variant="secondary" onPress={() => setSheet(null)}>
-          Keep filming
+          Keep going
         </Button>
       </Sheet>
     </View>

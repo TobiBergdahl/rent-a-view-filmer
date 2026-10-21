@@ -17,7 +17,7 @@ export default function OnboardingDone() {
       step="done"
       back={false}
       title="You’re all set"
-      lead={`Welcome to Rent A View, ${draft.firstName}. Here’s how travellers will see you.`}
+      lead={`Welcome to Rent A View, ${draft.firstName}. Here’s how travelers will see you.`}
       footer={
         // The root layout switches to the app once the filmer is signed in
         <Button onPress={finishOnboarding}>See nearby requests</Button>
@@ -26,12 +26,12 @@ export default function OnboardingDone() {
 
       {/* Said once, here, instead of on every request */}
       <Notice icon="hand.thumbsup">
-        Your job is an honest answer. If the place isn’t what the traveller hoped and they don’t book, that’s a success too.
+        Your job is an honest answer. If the place isn’t what the traveler hoped and they don’t book, that’s a success too.
       </Notice>
 
       {draft.guideLicence?.status === 'pending' && (
         <Notice icon="flag">
-          We’re checking your tour guide licence. Once it’s approved, travellers see the “Licensed tour guide” badge.
+          We’re checking your tour guide licence. Once it’s approved, travelers see the “Licensed tour guide” badge.
         </Notice>
       )}
 

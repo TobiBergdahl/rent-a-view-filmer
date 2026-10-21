@@ -18,7 +18,7 @@ import { buttonHeight, colors, radius, space } from '@/theme'
 
 const PHOTO_HEIGHT = 300
 
-const declineReasons = ['Too far', 'Not available then', 'Not comfortable filming this', 'Something else']
+const declineReasons = ['Too far', 'Not available then', 'Needs inside access', 'Not comfortable filming this', 'Something else']
 
 export default function RequestDetail() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -39,7 +39,7 @@ export default function RequestDetail() {
       <View style={{ flex: 1, gap: space.base, padding: 20, paddingTop: insets.top + space.sm }}>
         <BackButton />
         <Text variant="headline">This request is no longer open</Text>
-        <Text color={colors.muted}>Another filmer may have taken it.</Text>
+        <Text color={colors.muted}>Another walker may have taken it.</Text>
       </View>
     )
   }
@@ -94,7 +94,7 @@ export default function RequestDetail() {
           </View>
         </View>
         <Text variant="caption" color={colors.muted} style={{ textAlign: 'center' }}>
-          {name} has paid. You get it when {name} accepts.
+          You get paid when {name} accepts, or automatically after 24 hours.
         </Text>
       </ActionBar>
 
@@ -132,7 +132,7 @@ export default function RequestDetail() {
       <Sheet visible={sheet === 'decline'} onClose={() => setSheet(null)}>
         <Text variant="headline">Decline this request?</Text>
         <Text variant="body" color={colors.body}>
-          It goes back to other filmers. Telling us why helps us send you better requests.
+          It goes back to other walkers. Telling us why helps us send you better requests.
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
           {declineReasons.map((r) => (

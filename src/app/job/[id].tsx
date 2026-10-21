@@ -35,7 +35,7 @@ import type { Job } from '@/types'
 
 // Live calls can be joined from five minutes before the exact start minute
 const JOIN_EARLY_MS = 5 * 60_000
-// Travellers have 24 hours to accept before it is accepted automatically
+// Travelers have 24 hours to accept before it is accepted automatically
 const ACCEPT_WINDOW_MS = 24 * 3600_000
 
 // "6h 37m" until the job is accepted automatically
@@ -44,7 +44,15 @@ const waitLeft = (job: Job, now: number) => {
   return `${Math.floor(left / 3600)}h ${String(Math.floor((left % 3600) / 60)).padStart(2, '0')}m`
 }
 
-const problems = ['Locked gate or door', 'Wrong address', 'Not safe to film', 'Something else']
+// Flag a brief before the session starts. Walkers only film from public space.
+const problems = [
+  'Brief needs inside access',
+  'Can’t be there on time',
+  'No public access',
+  'Wrong address',
+  'Not safe to film',
+  'Something else',
+]
 
 export default function JobDetail() {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -97,7 +105,7 @@ export default function JobDetail() {
         </Button>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <TextButton color={colors.muted} onPress={() => setSheet('problem')}>
-            Can’t get in?
+            Can’t do this job?
           </TextButton>
         </View>
       </>
@@ -123,7 +131,7 @@ export default function JobDetail() {
         </Button>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <TextButton color={colors.muted} onPress={() => setSheet('problem')}>
-            Can’t get there?
+            Can’t do this job?
           </TextButton>
         </View>
       </>
@@ -318,11 +326,11 @@ export default function JobDetail() {
         )}
       </Sheet>
 
-      {/* Blueprint: "Access blocked" */}
+      {/* Blueprint: "Access blocked". Flag a brief you can't meet before the session. */}
       <Sheet visible={sheet === 'problem'} onClose={() => setSheet(null)}>
-        <Text variant="headline">Can’t get in?</Text>
+        <Text variant="headline">Can’t do this job?</Text>
         <Text variant="body" color={colors.body}>
-          Don’t force your way in or trespass. Tell us what’s wrong and we’ll sort it out with {name}.
+          Tell us before the session starts and we’ll sort it out with {name}. Never enter a property or a private area.
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: space.sm }}>
           {problems.map((p) => (
@@ -422,7 +430,7 @@ function AwaitingNote({ job, now, onSimulate }: { job: Job; now: number; onSimul
         <View style={{ flex: 1, gap: 4 }}>
           <Text variant="label">You’re paid for an honest answer</Text>
           <Text variant="bodySmall" color={colors.body}>
-            {`Even if your video tells ${name} not to book. ${name} has already paid ${euro(job.request.payout)}. We hold it and release it to you when ${name} accepts, or automatically ${daySentence(autoAt)} at ${clock(autoAt)}.`}
+            {`Even if your video tells ${name} not to book. You get paid when ${name} accepts, or automatically ${daySentence(autoAt)} at ${clock(autoAt)}.`}
           </Text>
         </View>
       </View>

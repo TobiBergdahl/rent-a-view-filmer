@@ -1,7 +1,7 @@
 // Tour guide licence upload. Prototype: the file is picked but never sent, and
 // it goes straight to "in review".
 // Production: upload to storage, then a manual or automated check sets the
-// licence to verified and the traveller app shows the badge.
+// licence to verified and the traveler app shows the badge.
 import * as DocumentPicker from 'expo-document-picker'
 import * as ImagePicker from 'expo-image-picker'
 

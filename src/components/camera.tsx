@@ -2,7 +2,7 @@
 // drift so it reads as live video, plus the proof stamp every clip carries.
 // Production: expo-camera (CameraView) for recording, and the live-video
 // provider's local preview during calls.
-import { Image } from 'expo-image'
+import { Image, type ImageProps } from 'expo-image'
 import { useEffect } from 'react'
 import { Pressable, View, type StyleProp, type ViewStyle } from 'react-native'
 import Animated, {
@@ -20,7 +20,7 @@ import type { LatLng } from '@/types'
 
 import { Icon, Text, type SymbolName } from './ui'
 
-export function Viewfinder({ photo, style }: { photo?: string; style?: StyleProp<ViewStyle> }) {
+export function Viewfinder({ photo, style }: { photo?: ImageProps['source']; style?: StyleProp<ViewStyle> }) {
   const drift = useSharedValue(0)
   useEffect(() => {
     drift.value = withRepeat(withTiming(1, { duration: 14000, easing: Easing.inOut(Easing.sin) }), -1, true)
@@ -54,7 +54,7 @@ export function PulseDot({ size = 8, color = colors.live }: { size?: number; col
 /**
  * Tells the filmer whether they're at the right place, in plain words.
  * The GPS position and time are still saved with every clip and shown to the
- * traveller as proof; the filmer doesn't need to read coordinates.
+ * traveler as proof; the filmer doesn't need to read coordinates.
  */
 export function LocationCheck({ position, target, place }: { position: LatLng; target: LatLng; place: string }) {
   const metres = metresBetween(position, target)

@@ -1,4 +1,4 @@
-// Shapes shared with the traveller web app (~/Development/rent-a-view/src/App.tsx).
+// Shapes shared with the traveler web app (~/Development/rent-a-view/src/App.tsx).
 // Copied, not imported. Move to a shared package once there is an API.
 export type LatLng = [number, number]
 export type Place = { title: string; address: string; position: LatLng; photo?: string }
@@ -8,29 +8,30 @@ export type User = { firstName: string; lastName: string; email: string; photo?:
 // Filmer app only
 export type Category = 'Beach' | 'Neighbourhood' | 'Hotel' | 'Listing'
 
-export type AreaId = 'split' | 'hvar' | 'dubrovnik' | 'zadar' | 'zagreb'
+// Dubrovnik only for the proof of concept
+export type AreaId = 'dubrovnik'
 
-export type Traveller = { firstName: string; lastName: string; photo?: string }
+export type Traveler = { firstName: string; lastName: string; photo?: string }
 
 export type Shot = { id: string; label: string }
 
-/** An open booking a traveller has paid for, waiting for a filmer. */
+/** An open booking a traveler has paid for, waiting for a filmer. */
 export type Request = {
   id: string
   place: Place & { area: string }
   category: Category
   mode: BookingMode
-  /** Filmer payout in euro cents, held in escrow until the traveller accepts */
+  /** Walker payout in euro cents (about 79% of the customer price), paid when the traveler accepts */
   payout: number
-  traveller: Traveller
-  /** The traveller's doubt, in their words. The job is to resolve it honestly. */
+  traveller: Traveler
+  /** The traveler's doubt, in their words. The job is to resolve it honestly. */
   doubt: string
   brief: string
   shots: Shot[]
   /** Live: exact start (ms) and length in minutes (1–60) */
   start?: number
   minutes?: number
-  /** Live: the traveller wants to talk and guide the filmer */
+  /** Live: the traveler wants to talk and guide the filmer */
   talk?: boolean
   /** Recorded: deliver by (ms) */
   deadline?: number
@@ -69,7 +70,7 @@ export type Job = {
 }
 
 /**
- * A licensed tour guide's licence. Once verified, travellers see a
+ * A licensed tour guide's licence. Once verified, travelers see a
  * "Licensed tour guide" badge on the filmer (the web app should show it too).
  */
 export type GuideLicence = { status: 'pending' | 'verified'; fileName: string; submittedAt: number }

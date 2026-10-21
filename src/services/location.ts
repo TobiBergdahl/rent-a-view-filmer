@@ -1,7 +1,7 @@
 // Simulated GPS. The filmer wanders a few metres around the pin, exactly like
 // the web app's useSimulatedFilmer, so both apps show the same thing.
 // Production: expo-location watchPositionAsync, then publish each fix to the
-// API so the traveller's map updates (and verify arrival server side).
+// API so the traveler's map updates (and verify arrival server side).
 import { useEffect, useState } from 'react'
 
 import { nudge } from '@/lib/geo'

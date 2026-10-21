@@ -37,7 +37,7 @@ export function jobLine(job: Job) {
   }
 }
 
-/** Airbnb-style card: photo first, then the facts and the traveller's doubt */
+/** Airbnb-style card: photo first, then the facts and the traveler's doubt */
 export function RequestCard({
   request,
   distance,

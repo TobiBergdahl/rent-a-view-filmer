@@ -28,7 +28,7 @@ export default function SignIn() {
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ gap: space.lg, padding: 20, paddingTop: insets.top + space.sm }}>
         <BackButton />
-        <ScreenTitle title="Welcome back" lead="Sign in to your filmer account." />
+        <ScreenTitle title="Welcome back" lead="Sign in to your walker account." />
         <View style={{ gap: space.base }}>
           <TextField
             label="Email"
@@ -64,7 +64,7 @@ export default function SignIn() {
             New here?
           </Text>
           <TextButton color={colors.muted} onPress={() => router.replace('/sign-up')}>
-            Become a filmer
+            Become a walker
           </TextButton>
         </View>
       </ScrollView>

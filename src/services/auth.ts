@@ -1,5 +1,5 @@
 // Fake auth, like the web app: any email and password sign in as Luka.
-// Production: swap for the real auth provider shared with the traveller app.
+// Production: swap for the real auth provider shared with the traveler app.
 import { luka } from '@/data/seed'
 import type { Filmer } from '@/types'
 
@@ -19,7 +19,7 @@ export async function signUp(input: {
   return {
     ...luka,
     ...input,
-    // Area is set later in the profile; new filmers start in Split
+    // Dubrovnik only for the proof of concept
     photo: undefined,
     bio: '',
     // New filmers start unverified with no ratings; licence and payout come

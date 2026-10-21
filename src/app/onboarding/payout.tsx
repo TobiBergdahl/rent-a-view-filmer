@@ -1,4 +1,4 @@
-// Onboarding step 3 of 4: choose a payout option (visual only)
+// Onboarding step 4 of 5: choose a payout option (visual only)
 import { router } from 'expo-router'
 import { useState } from 'react'
 import { View } from 'react-native'
@@ -18,16 +18,16 @@ export default function PayoutStep() {
 
   return (
     <OnboardingScreen
-      step={3}
+      step={4}
       title="Choose how you get paid"
-      lead="Money is released here once the traveller accepts your video."
+      lead="You get paid here once the traveler accepts your video."
       footer={
         <>
           <Button onPress={() => router.push({ pathname: '/onboarding/connect', params: { method } })}>
             {payoutOptions[method].cta}
           </Button>
           <Text variant="caption" color={colors.muted} style={{ textAlign: 'center' }}>
-            Your payout details are encrypted and never shared with travellers.
+            Your payout details are encrypted and never shared with travelers.
           </Text>
         </>
       }>

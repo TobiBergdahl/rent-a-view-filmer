@@ -1,4 +1,4 @@
-// Shared frame for the four onboarding steps (Blueprint: filmer onboarding)
+// Shared frame for the five onboarding steps (Blueprint: filmer onboarding)
 import type { ReactNode } from 'react'
 import { KeyboardAvoidingView, ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -8,7 +8,7 @@ import { colors, space } from '@/theme'
 import { ActionBar } from './layout'
 import { BackButton, Kicker, Text } from './ui'
 
-export const ONBOARDING_STEPS = 4
+export const ONBOARDING_STEPS = 5
 
 export function OnboardingScreen({
   step,

@@ -1,4 +1,4 @@
-// Profile: what travellers see first, with editing and settings behind
+// Profile: what travelers see first, with editing and settings behind
 // simple rows instead of always-open forms.
 import * as ImagePicker from 'expo-image-picker'
 import { useState, type ReactNode } from 'react'
@@ -58,7 +58,7 @@ export default function Profile() {
       <ScrollView
         contentInsetAdjustmentBehavior="never"
         contentContainerStyle={{ gap: space.xl, padding: 20, paddingBottom: insets.bottom + 96, paddingTop: insets.top + space.sm }}>
-        {/* What travellers see */}
+        {/* What travelers see */}
         <View
           style={[
             { alignItems: 'center', backgroundColor: colors.canvas, borderRadius: radius.lg, gap: space.md, padding: space.lg },
@@ -87,7 +87,7 @@ export default function Profile() {
               </>
             ) : (
               <Text variant="bodySmall" color={colors.muted}>
-                New filmer · no reviews yet
+                New walker · no reviews yet
               </Text>
             )}
           </View>
@@ -123,7 +123,7 @@ export default function Profile() {
           multiline
           value={f.bio}
           onChangeText={(bio) => updateFilmer({ bio })}
-          placeholder="What travellers should know about you"
+          placeholder="What travelers should know about you"
         />
         <Button onPress={() => setSheet(null)}>Done</Button>
       </Sheet>

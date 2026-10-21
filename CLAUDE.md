@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Rent A View **filmer app**: a clickable Expo prototype. Companion to the traveller
+Rent A View **walker app**: a clickable Expo prototype. Companion to the traveler
 web prototype in `~/Development/rent-a-view` (React + Vite). See `README.md` for
 the flows, demo path and production gaps.
 
@@ -30,27 +30,34 @@ Expo Go; use `ScreenStatusBar` from `src/components/ui.tsx`).
   integrations behind the same function signatures.
 - **Prototype clock.** Use `now()` / `useNow()` from `src/lib/time.ts`, never
   `Date.now()` for anything shown to the user. All times are Europe/Zagreb;
-  filmers work 08:00–20:00.
-- **Money is euro cents** (`payout: 2900`), formatted with `euro()`: "€29" for whole euros, "€29.50" otherwise (the web app shows "€29.00").
-- Controls that fake the traveller's side carry the yellow `PrototypeTag`.
+  walkers work 08:00–20:00.
+- **Money is euro cents** (`payout: 2300`, `WALKER_PAYOUT` in `seed.ts`: about
+  79% of the €29 customer price, always paid in euros), formatted with `euro()`: "€29" for whole euros, "€29.50" otherwise (the web app shows "€29.00").
+- Controls that fake the traveler's side carry the yellow `PrototypeTag`.
 
 ## Keep the two apps telling the same story
 
 - Statuses and labels: `statusLabel` in `src/state/store.tsx` (Scheduled, Live
   now, Awaiting acceptance, Completed) and `StatusPill` colours match the web
   dashboard.
-- Places, filmers (Luka M., Ana K., Marin B., Karlo P., Iva M.), Maya Chen as
-  the Hvar traveller and €29 checks match the web app.
-- Money words for filmers: **Pending** (traveller has paid, waiting for
-  acceptance) and **Paid out**. Don't say "escrow" to filmers; the traveller
-  web app may keep it.
+- Dubrovnik only for the PoC. Places, walkers (Luka M., Ana K., Marin B., Karlo
+  P., Iva M.), and Maya Chen's live booking at Banje Beachfront Studio match
+  the web app.
+- **No indoor checks.** Every brief must be visible from public space; walkers
+  can't enter a property. Walkers can flag a brief they can't meet.
+- Money words for walkers: **Pending** and **Paid out**, and "You get paid when
+  Maya accepts, or automatically after 24 hours." Never say "escrow" or
+  anything that suggests RentaView holds the money.
 - Shared shapes in `src/types.ts` are copied from the web's `App.tsx`. Change
   both if one changes.
-- The people who film are "filmers". The other side are "travellers".
+- Never say "filmer". In this app the people who film are **walkers**;
+  travelers call them their **local**. The other side are **travelers** (US
+  spelling, as on the web). Code identifiers like `Filmer` and `filmer` are
+  internal and stay for now.
 - **Licensed tour guides** carry `guideLicence` on the filmer. Only a
-  `verified` licence shows the "Licensed tour guide" badge to travellers
+  `verified` licence shows the "Licensed tour guide" badge to travelers
   (`FilmerBadges` in `src/components/filmer.tsx`). The web app should show the
-  same badge once it gets filmer data from the API.
+  same badge once it gets walker data from the API.
 
 ## Design system
 

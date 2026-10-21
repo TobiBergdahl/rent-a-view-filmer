@@ -1,9 +1,9 @@
-# Rent A View: filmer prototype
+# Rent A View: walker app prototype
 
-A clickable prototype of the **Rent A View filmer app**: the companion to the
-traveller web app (`~/Development/rent-a-view`). Filmers are trusted locals who
-pick up requests, go to the place, and film what the traveller asked for, so the
-traveller can resolve a doubt before they book. A "don't book" answer counts as
+A clickable prototype of the **Rent A View walker app**: the companion to the
+traveler web app (`~/Development/rent-a-view`). Walkers are trusted locals who
+pick up requests, go to the place, and film what the traveler asked for, so the
+traveler can resolve a doubt before they book. A "don't book" answer counts as
 a success too.
 
 This is a **prototype**. It has no backend: data is hardcoded, and everything
@@ -20,7 +20,7 @@ npx expo start
 
 Then press `i` to open it in the iOS Simulator, or scan the QR code with
 **Expo Go** (SDK 57) on your phone. Any email and password signs you in as
-**Luka M.**, a filmer in Split.
+**Luka M.**, a walker in Dubrovnik.
 
 If the simulator times out opening the project (it can on a fresh boot), open
 Expo Go once by hand and run `xcrun simctl openurl booted exp://127.0.0.1:8081`.
@@ -78,39 +78,39 @@ away; external testers need a short Beta App Review the first time.
 | Welcome and sign in (fake auth) | `src/app/welcome.tsx`, `sign-in.tsx` |
 | Onboarding, 4 steps: account → profile details and tour guide licence → payout option → confirm connection → all set | `src/app/sign-up.tsx`, `src/app/onboarding/` |
 | Nearby requests: list and map | `src/app/(tabs)/index.tsx` |
-| Request detail and brief: the traveller's doubt, shots, time slot or deadline, map pin; accept or decline | `src/app/request/[id].tsx` |
+| Request detail and brief: the traveler's doubt, shots, time slot or deadline, map pin; accept or decline | `src/app/request/[id].tsx` |
 | Job: navigate, "I've arrived" GPS check, "Can't get in?" report, progress | `src/app/job/[id].tsx` |
 | Recorded job: one continuous take with the brief as a checklist on screen → review (retake if needed) → upload | `src/app/record/[id].tsx` |
-| Live job: lobby counting down to the exact minute → video call with GPS sharing, the traveller talks and guides you → end call | `src/app/live/[id].tsx` |
-| Delivered / call ended: waiting for the traveller to accept | `src/app/done/[id].tsx` |
+| Live job: lobby counting down to the exact minute → video call with GPS sharing, the traveler talks and guides you → end call | `src/app/live/[id].tsx` |
+| Delivered / call ended: waiting for the traveler to accept | `src/app/done/[id].tsx` |
 | Jobs: upcoming, awaiting acceptance, completed (paid) | `src/app/(tabs)/jobs.tsx` |
 | Earnings: paid out (week, month, all time) vs pending, next payout day, ratings received | `src/app/(tabs)/earnings.tsx` |
-| Profile: photo, name, bio, how travellers see you, tour guide licence, payout method | `src/app/(tabs)/profile.tsx` |
+| Profile: photo, name, bio, how travelers see you, tour guide licence, payout method | `src/app/(tabs)/profile.tsx` |
 
-**A good demo path:** sign in → Jobs → *Hvar Beachfront Studio* → Join call →
-*Skip the wait* → Maya's tile lights up while she talks → End call. Then Requests → *Split
-Center* → Accept → I've arrived → Start filming → record, ticking off the checklist → stop →
+**A good demo path:** sign in → Jobs → *Banje Beachfront Studio* → Join call →
+*Skip the wait* → Maya's tile lights up while she talks → End call. Then Requests → *Stradun,
+Old Town* → Accept → I've arrived → Start filming → record, ticking off the checklist → stop →
 Upload. On an *Awaiting acceptance* job, tap **Simulate: … accepts and
 rates** to see the money move from pending to paid out.
 
 ### The prototype clock
 
 Every launch starts the app's clock at **10:42 Croatian time today**, then it
-runs in real time (`src/lib/time.ts`). That keeps the demo inside filmers'
-working hours, and puts the Hvar live call (10:45) three minutes away.
+runs in real time (`src/lib/time.ts`). That keeps the demo inside walkers'
+working hours, and puts the Banje live call (10:45) three minutes away.
 
 ## Shared story with the web app
 
-Statuses, places, people and amounts mirror the traveller prototype so both
+Statuses, places, people and amounts mirror the traveler prototype so both
 apps tell the same story:
 
 - **Scheduled → Live now → Awaiting acceptance → Completed**, then rated.
   Same pill colours as the web dashboard.
-- Hvar Beachfront Studio is Maya's live booking with Luka M., as on the web.
+- Banje Beachfront Studio is Maya's live booking with Luka M., as on the web.
   The call shows the same balcony frame, and the GPS simulation is the same
   code as the web's `useSimulatedFilmer`, with the same white-dot-blue-ring
   marker.
-- Recorded checks start at €29.00, held in escrow until the traveller accepts.
+- Checks cost travelers €29; walkers get €23 (about 79%), always in euros, when the traveler accepts or automatically after 24 hours. Dubrovnik only, and every brief is visible from public space.
 - Shared shapes (`LatLng`, `Place`, `BookingMode`, `User`) are copied into
   `src/types.ts`, not imported.
 
@@ -142,17 +142,17 @@ apps tell the same story:
 
 | Area | Prototype today | Needed |
 | --- | --- | --- |
-| **Auth** | Fake: any email signs in as Luka | Real auth, shared with the traveller app |
-| **Data** | Hardcoded in `src/data/seed.ts`, lost on reload | An API shared with the traveller app. Replace the bodies of the store actions. |
-| **Filmer verification** | A "Verified filmer" badge | ID checks before the first paid job |
-| **Tour guide licence** | File picked (photo or PDF) but never sent; goes straight to "In review". "Simulate: licence approved" in Profile turns on the badge | Upload to storage, a review step, and the "Licensed tour guide" badge in the traveller web app (`Filmer.guideLicence.status === 'verified'`) |
-| **Location** | Simulated (`src/services/location.ts`); the filmer's area stands in for their position | `expo-location`, publish fixes to the API, verify arrival server side |
+| **Auth** | Fake: any email signs in as Luka | Real auth, shared with the traveler app |
+| **Data** | Hardcoded in `src/data/seed.ts`, lost on reload | An API shared with the traveler app. Replace the bodies of the store actions. |
+| **Walker verification** | A "Verified local" badge | ID checks before the first paid job |
+| **Tour guide licence** | File picked (photo or PDF) but never sent; goes straight to "In review". "Simulate: licence approved" in Profile turns on the badge | Upload to storage, a review step, and the "Licensed tour guide" badge in the traveler web app (`Filmer.guideLicence.status === 'verified'`) |
+| **Location** | Simulated (`src/services/location.ts`); the walker's area stands in for their position | `expo-location`, publish fixes to the API, verify arrival server side |
 | **Camera** | A drifting placeholder photo with a GPS and time stamp | `expo-camera` recording, stamp metadata into the files |
 | **Upload** | Simulated progress (`src/services/upload.ts`) | Resumable upload and storage (e.g. S3 multipart or Mux) |
 | **Live video** | Simulated call: a moving placeholder frame and a fake "speaking" indicator | A live-video provider (e.g. LiveKit, Daily, Agora) |
-| **Payouts** | Escrow amounts and the payout method (bank, PayPal, Wise) are display only; "Authorise connection" just waits a second | Payment provider with escrow and payouts to filmers. The platform fee split is not modelled: payout = price. |
+| **Payouts** | Pending amounts and the payout method (bank, PayPal, Wise) are display only; "Authorise connection" just waits a second | Payment provider and payouts to walkers in euros. Walker payout is a flat €23 per session (about 79% of €29); a price table per session length still needs agreeing with the client. |
 | **Maps** | Apple Maps via `react-native-maps` | Fine on iOS; Android needs a Google Maps API key |
-| **Photos** | Unsplash hotlinked; welcome photo copied from the web's `public/media/filmer-cafe.jpg` | Self-host or replace with the client's photography, and confirm the welcome photo's licence |
+| **Photos** | Unsplash hotlinked; welcome photo is a Dubrovnik Old Town alley supplied by Alster | Self-host or replace with the client's photography, and confirm the welcome photo's licence |
 | **Profile photo** | Kept in memory | Upload to storage |
 | **Clock** | Starts at 10:42 Zagreb time every launch | `Date.now()` |
 | **Copy** | Placeholders such as "4.9 · 52 reviews", "24 hours to accept", "paid out every Friday" | Confirm with the client |

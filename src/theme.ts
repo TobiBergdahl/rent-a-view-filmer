@@ -1,4 +1,4 @@
-// Design tokens ported from the traveller web app:
+// Design tokens ported from the traveler web app:
 // ~/Development/rent-a-view/DESIGN.md and the :root block in src/index.css.
 // Use these instead of hardcoding values in components.
 

@@ -1,4 +1,4 @@
-// How a filmer is presented: trust badges, the traveller-facing preview,
+// How a filmer is presented: trust badges, the traveler-facing preview,
 // the tour guide licence card and payout options.
 import { useState } from 'react'
 import { ActionSheetIOS, Alert, Platform, Pressable, View } from 'react-native'
@@ -31,13 +31,13 @@ function Badge({ icon, label, tone }: { icon: SymbolName; label: string; tone: '
   )
 }
 
-/** The badges travellers see. "Licensed tour guide" only once the licence is verified. */
+/** The badges travelers see. "Licensed tour guide" only once the licence is verified. */
 export function FilmerBadges({ filmer, showPending }: { filmer: Filmer; showPending?: boolean }) {
   const licence = filmer.guideLicence
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
       {filmer.verified ? (
-        <Badge icon="checkmark.seal.fill" label="Verified filmer" tone="success" />
+        <Badge icon="checkmark.seal.fill" label="Verified local" tone="success" />
       ) : (
         showPending && <Badge icon="hourglass" label="Verification pending" tone="neutral" />
       )}
@@ -49,7 +49,7 @@ export function FilmerBadges({ filmer, showPending }: { filmer: Filmer; showPend
   )
 }
 
-/** A preview of the filmer card travellers see when a filmer accepts their booking */
+/** A preview of the filmer card travelers see when a filmer accepts their booking */
 export function TravellerPreview({ filmer }: { filmer: Filmer }) {
   return (
     <View style={[{ backgroundColor: colors.canvas, borderRadius: radius.md, gap: space.md, padding: 20 }, raised]}>
@@ -68,7 +68,7 @@ export function TravellerPreview({ filmer }: { filmer: Filmer }) {
             </View>
           ) : (
             <Text variant="caption" color={colors.muted}>
-              New filmer
+              New local
             </Text>
           )}
         </View>
@@ -141,8 +141,8 @@ export function LicenceCard({
           </Text>
           <Text variant="bodySmall" color={colors.muted}>
             {licence?.status === 'verified'
-              ? 'Your licence is verified. Travellers see the badge on your profile.'
-              : 'Upload your licence and travellers will see a “Licensed tour guide” badge on your profile. Optional.'}
+              ? 'Your licence is verified. Travelers see the badge on your profile.'
+              : 'Upload your licence and travelers will see a “Licensed tour guide” badge on your profile. Optional.'}
           </Text>
         </View>
       </View>
@@ -190,7 +190,7 @@ export function LicenceCard({
         </View>
         <Text variant="caption" color={colors.muted} style={{ flex: 1 }}>
           {licence?.status === 'verified'
-            ? 'Travellers see the badge. Replace it when you renew your licence.'
+            ? 'Travelers see the badge. Replace it when you renew your licence.'
             : licence
               ? 'We check it within 2 working days.'
               : 'You can add it later from your profile.'}

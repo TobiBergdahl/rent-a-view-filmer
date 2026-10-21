@@ -1,4 +1,4 @@
-// Onboarding step 4 of 4: confirm the payout connection.
+// Onboarding step 5 of 5: confirm the payout connection.
 // Visual only: no payment provider is called. Production: redirect to the
 // provider (bank, PayPal or Wise) via the payment platform's onboarding.
 import * as Haptics from 'expo-haptics'
@@ -38,7 +38,7 @@ export default function ConnectStep() {
 
   return (
     <OnboardingScreen
-      step={4}
+      step={5}
       title="Confirm your payout connection"
       lead={`We’ll send you to ${option.provider} to approve it.`}
       footer={
